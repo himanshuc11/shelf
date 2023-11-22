@@ -1,34 +1,27 @@
 import * as React from 'react';
 import {View, Text, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeStackNavigatorParamList, HomeScreenNavigationProp} from './types';
 
 const Stack = createNativeStackNavigator<HomeStackNavigatorParamList>();
 
 function DetailsScreen(props: HomeScreenNavigationProp) {
-  const navigation = useNavigation();
-  // @ts-ignore
-  const handleNavigate = () => navigation.navigate('Home');
-
-  console.log(props);
+  const handleNavigate = () => props.navigate('Details');
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Details Screen Ner</Text>
-      <Button onPress={handleNavigate} title="Navigate To Home" />
+      <Button onPress={handleNavigate} title="Navigate To Details" />
     </View>
   );
 }
 
 function HomeScreen(props: HomeScreenNavigationProp) {
-  const navigation = useNavigation();
-  // @ts-ignore
-  const handleNavigate = () => navigation.navigate('Details');
+  const handleNavigate = () => props.navigate('Home');
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Home Screen Ner</Text>
-      <Button onPress={handleNavigate} title="Navigate To Details" />
+      <Button onPress={handleNavigate} title="Navigate To Home" />
     </View>
   );
 }
