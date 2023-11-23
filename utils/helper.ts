@@ -1,5 +1,6 @@
 import {PermissionsAndroid} from 'react-native';
 import {Alert} from 'react-native';
+import messaging from '@react-native-firebase/messaging';
 import {firebase} from '@react-native-firebase/messaging';
 
 async function requestNotificationPermissionAndroid() {
@@ -7,7 +8,6 @@ async function requestNotificationPermissionAndroid() {
     PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
     );
-    console.log(PermissionsAndroid);
     await getFirebaseTokenAsync();
   } catch (err) {
     Alert.alert('Permission Denied');
@@ -15,6 +15,9 @@ async function requestNotificationPermissionAndroid() {
 }
 
 async function getFirebaseTokenAsync() {
+  if (!messaging().isDeviceRegisteredForRemoteMessages) {
+    await messaging().registerDeviceForRemoteMessages();
+  }
   const fcmToken = await firebase.messaging().getToken();
   return fcmToken;
 }
