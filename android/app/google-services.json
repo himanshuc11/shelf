@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "548298166156",
+    "project_id": "shelf-dc6c9",
+    "storage_bucket": "shelf-dc6c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548298166156:android:882271f3814a64e04350a9",
+        "android_client_info": {
+          "package_name": "com.application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlpQqZJ-hocTqEeEGNgnU69KxSdKMKDmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

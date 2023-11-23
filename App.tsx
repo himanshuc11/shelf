@@ -4,6 +4,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeStackNavigatorParamList, HomeScreenNavigationProp} from './types';
+import {
+  getFirebaseTokenAsync,
+  requestNotificationPermissionAndroid,
+} from './utils/helper';
 
 const Stack = createNativeStackNavigator<HomeStackNavigatorParamList>();
 
@@ -23,6 +27,16 @@ function DetailsScreen(props: HomeScreenNavigationProp) {
 
 function HomeScreen(props: HomeScreenNavigationProp) {
   const navigation = useNavigation();
+
+  React.useEffect(() => {
+    const token = async () => {
+      await requestNotificationPermissionAndroid();
+      const res = await getFirebaseTokenAsync();
+      console.log(res);
+    };
+    token();
+  }, []);
+
   // @ts-ignore
   const handleNavigate = () => navigation.navigate('Details');
   return (
