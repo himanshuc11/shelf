@@ -37,18 +37,25 @@ const items = [
 function ItenaryItem() {
   const currentItem = items[0];
   return (
-    <SafeAreaView style={styles.itenaryContainer}>
-      <TimelineCircle />
-      <View style={styles.textContainer}>
-        <Text>{currentItem.title}</Text>
-        <Text>{currentItem.subTitle}</Text>
-      </View>
-      <View style={styles.rightAlign}>
-        <View style={styles.imageContainer}>
-          <Image source={currentItem.weather} style={styles.weather} />
+    <View style={styles.rowContainer}>
+      <TimelineCircle dateTime={currentItem.date} />
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          alignSelf: 'flex-start',
+        }}>
+        <View style={styles.textContainer}>
+          <Text>{currentItem.title}</Text>
+          <Text>{currentItem.subTitle}</Text>
+        </View>
+        <View style={styles.rightAlign}>
+          <View style={styles.imageContainer}>
+            <Image source={currentItem.weather} style={styles.weather} />
+          </View>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -61,13 +68,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 99999,
+    borderRadius: 40,
   },
-  itenaryContainer: {
+  rowContainer: {
     flexDirection: 'row',
     marginLeft: 16,
     marginRight: 24,
     alignItems: 'center',
+    backgroundColor: 'yellow',
+    height: 100,
   },
   weather: {width: '100%', height: '100%'},
 });
