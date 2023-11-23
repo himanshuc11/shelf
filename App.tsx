@@ -41,7 +41,7 @@ function HomeScreen(props: HomeScreenNavigationProp) {
   // @ts-ignore
   const handleNavigate = () => navigation.navigate('Details');
   return (
-    <View style={{flex: 1, marginLeft: 10, marginTop: 20}}>
+    <View style={{flex: 1, marginTop: 20}}>
       <ItenaryItem />
     </View>
   );
