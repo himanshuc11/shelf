@@ -6,11 +6,12 @@ import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
-import notifee, { EventType } from '@notifee/react-native';
+import notifee, {AndroidImportance} from '@notifee/react-native';
+
 
 notifee.onBackgroundEvent(async ({ type, detail }) => {
   const { notification, pressAction } = detail;
-  console.log(detail)
+  console.log(notification.data)
   // Check if the user pressed the "Mark as read" action
   // if (type === EventType.ACTION_PRESS && pressAction.id === 'mark-as-read') {
   //   // Update external API
@@ -28,21 +29,29 @@ async function onMessageReceived(message) {
 
     // Create a channel (required for Android)
     const channelId = await notifee.createChannel({
-      id: 'default',
-      name: 'Default Channel',
+      id: 'custom',
+      name: 'Custom Channel',
+      importance: AndroidImportance.HIGH, 
     });
 
     // Display a notification
     await notifee.displayNotification({
-      title: 'Notification Title',
-      body: 'Main body content of the notification',
+      title: "Notifee",
+      subtitle: "Check out action buttons",
+      body: "Choose one of the matrix pills",
+      data: { id: String(9) },
       android: {
         channelId,
-        pressAction: {
-          id: 'default',
-        },
+        actions: [
+          {
+            pressAction: { id: "red" },
+            title: "Red Pill",
+            
+          },
+          { pressAction: { id: "blue" }, title: "Blue Pill" },
+        ],
       },
-    });
+    })
 }
 
 messaging().onMessage(onMessageReceived);
