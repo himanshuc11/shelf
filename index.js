@@ -6,7 +6,7 @@ import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
-import notifee, {AndroidImportance} from '@notifee/react-native';
+import notifee, {AndroidImportance, AndroidStyle} from '@notifee/react-native';
 
 
 notifee.onBackgroundEvent(async ({ type, detail }) => {
@@ -42,6 +42,11 @@ async function onMessageReceived(message) {
       data: { id: String(9) },
       android: {
         channelId,
+        largeIcon: "https://i.imgflip.com/7l05nu.jpg",
+      style: {
+        type: AndroidStyle.BIGPICTURE,
+        picture: "https://i.imgflip.com/7l05nu.jpg",
+      },
         actions: [
           {
             pressAction: { id: "red" },
