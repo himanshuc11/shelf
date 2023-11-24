@@ -1,11 +1,11 @@
 import * as React from 'react';
 import TabBar from './components/TabBar';
 import {NavigationContainer} from '@react-navigation/native';
-import {HomeStackNavigatorParamList} from './types';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screen from './screens';
 import * as Icons from './themes/icons';
 import COLORS from './themes/colors';
+import type {HomeStackNavigatorParamList} from './types';
 
 const Tab = createBottomTabNavigator<HomeStackNavigatorParamList>();
 
@@ -17,6 +17,7 @@ export default function App() {
           name="Home"
           component={Screen.Home}
           options={{
+            tabBarTestID: 'Home',
             tabBarIcon: props => (
               <Icons.Home
                 fill={props.focused ? COLORS.FOCUS_BLUE : COLORS.ICON_GRAY}
@@ -28,6 +29,7 @@ export default function App() {
           name="Wallet"
           component={Screen.Wallet}
           options={{
+            tabBarTestID: 'Wallet',
             tabBarIcon: props => (
               <Icons.Wallet
                 fill={props.focused ? COLORS.FOCUS_BLUE : COLORS.ICON_GRAY}
@@ -39,6 +41,7 @@ export default function App() {
           name="Guide"
           component={Screen.Guide}
           options={{
+            tabBarTestID: 'Guide',
             tabBarIcon: props => (
               <Icons.Guide
                 fill={props.focused ? COLORS.FOCUS_BLUE : COLORS.ICON_GRAY}
@@ -50,6 +53,7 @@ export default function App() {
           name="Chart"
           component={Screen.Chart}
           options={{
+            tabBarTestID: 'Chart',
             tabBarIcon: props => (
               <Icons.Chart
                 fill={props.focused ? COLORS.FOCUS_BLUE : COLORS.ICON_GRAY}
