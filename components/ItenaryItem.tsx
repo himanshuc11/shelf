@@ -45,7 +45,7 @@ function ItenaryItem(props: Props) {
       <View style={styles.titleGroup}>
         <View style={styles.titleContainer}>
           <Text style={styles.place}>{currentItem.title}</Text>
-          <Text>{currentItem.subTitle}</Text>
+          <Text style={styles.activity}>{currentItem.subTitle}</Text>
         </View>
         <View style={styles.rightAlign}>
           <View style={styles.imageContainer}>
@@ -59,9 +59,18 @@ function ItenaryItem(props: Props) {
 
 const styles = StyleSheet.create({
   place: {
-    fontFamily: 'Poppins-Black',
+    fontFamily: 'Poppins-Bold',
     fontSize: 16,
     fontWeight: '600',
+    color: COLORS.BLACK,
+    lineHeight: 24,
+  },
+  activity: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    fontWeight: '400',
+    color: COLORS.DARK_GRAY,
+    lineHeight: 24,
   },
   titleGroup: {
     flex: 1,
@@ -90,7 +99,14 @@ const styles = StyleSheet.create({
     height: 100,
   },
   weather: {width: '100%', height: '100%'},
-  timeText: {marginRight: 6, fontSize: 18},
+  timeText: {
+    marginRight: 6,
+    fontFamily: 'Poppins-Regular',
+    fontSize: 18,
+    fontWeight: '400',
+    color: COLORS.BLACK,
+    lineHeight: 24,
+  },
 });
 
 export default ItenaryItem;
