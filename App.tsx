@@ -1,35 +1,12 @@
 import * as React from 'react';
-import {View, Text, Button} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {
-  HomeStackNavigatorParamList,
-  HomeScreenNavigationProp,
-  DetailsScreenNavigationProp,
-} from './types';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import ItenaryItem from './components/ItenaryItem';
+import {NavigationContainer} from '@react-navigation/native';
+import {HomeStackNavigatorParamList} from './types';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeScreen from './screens/Home';
+import DetailsScreen from './screens/Details';
 
 const Tab = createBottomTabNavigator<HomeStackNavigatorParamList>();
-
-function DetailsScreen(props: DetailsScreenNavigationProp) {
-  const handleNavigate = () => props.navigation.navigate('Home');
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Details Screen Ner</Text>
-      <Button onPress={handleNavigate} title="Navigate To Home" />
-    </View>
-  );
-}
-
-function HomeScreen(props: HomeScreenNavigationProp) {
-  const handleNavigate = () => props.navigation.navigate('Details');
-  return (
-    <View style={{flex: 1, marginTop: 30}}>
-      <ItenaryItem />
-    </View>
-  );
-}
 
 export default function App() {
   return (
