@@ -1,8 +1,7 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
+import TimelineCircle from './TimelineCircle';
 import {sun, moon, cloud} from '../themes/images';
 import COLORS from '../themes/colors';
-
-const CIRCLE_RAIUS = 22;
 
 const items = [
   {
@@ -44,12 +43,7 @@ function ItenaryItem(props: Props) {
   return (
     <View style={styles.itenaryContainer}>
       <Text style={styles.timeText}>00:00</Text>
-      <View style={{height: '100%'}}>
-        <View style={styles.circle} />
-        <View style={styles.timeline}>
-          <View style={styles.timelineLine} />
-        </View>
-      </View>
+      <TimelineCircle />
       <View style={styles.titleGroup}>
         <View style={styles.titleContainer}>
           <Text>{currentItem.title}</Text>
@@ -78,10 +72,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginTop: -10,
   },
-  timeline: {
-    flex: 1,
-    alignItems: 'flex-end',
-  },
   imageContainer: {
     width: 40,
     height: 40,
@@ -99,21 +89,6 @@ const styles = StyleSheet.create({
   },
   weather: {width: '100%', height: '100%'},
   timeText: {marginRight: 6, fontSize: 18},
-  circle: {
-    width: CIRCLE_RAIUS,
-    height: CIRCLE_RAIUS,
-    borderRadius: CIRCLE_RAIUS,
-    borderColor: COLORS.GRAY,
-    borderWidth: 1,
-    backgroundColor: COLORS.BACKGROUND,
-  },
-  timelineLine: {
-    backgroundColor: COLORS.GRAY,
-    width: 1,
-    flex: 1,
-    flexDirection: 'column',
-    right: CIRCLE_RAIUS / 2,
-  },
 });
 
 export default ItenaryItem;
