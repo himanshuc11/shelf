@@ -1,16 +1,6 @@
-import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
 export type HomeStackNavigatorParamList = {
   Home: undefined;
-  Details: undefined;
+  Wallet: undefined;
+  Guide: undefined;
+  Chart: undefined;
 };
-
-export type HomeScreenNavigationProp = NativeStackNavigationProp<
-  HomeStackNavigatorParamList,
-  'Home'
->;
-
-export type DetailsScreenNavigationProp = NativeStackNavigationProp<
-  HomeStackNavigatorParamList,
-  'Details'
->;

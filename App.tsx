@@ -1,61 +1,63 @@
 import * as React from 'react';
-import {View, Text, Button} from 'react-native';
+import TabBar from './components/TabBar';
 import {NavigationContainer} from '@react-navigation/native';
-import {useNavigation} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeStackNavigatorParamList, HomeScreenNavigationProp} from './types';
-import {
-  getFirebaseTokenAsync,
-  requestNotificationPermissionAndroid,
-} from './utils/helper';
-import ItenaryItem from './components/ItenaryItem';
+import {HomeStackNavigatorParamList} from './types';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import * as Screen from './screens';
+import * as Icons from './themes/icons';
+import COLORS from './themes/colors';
 
-const Stack = createNativeStackNavigator<HomeStackNavigatorParamList>();
-
-function DetailsScreen(props: HomeScreenNavigationProp) {
-  const navigation = useNavigation();
-  // @ts-ignore
-  const handleNavigate = () => navigation.navigate('Home');
-
-  console.log(props);
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Details Screen Ner</Text>
-      <Button onPress={handleNavigate} title="Navigate To Home" />
-    </View>
-  );
-}
-
-function HomeScreen(props: HomeScreenNavigationProp) {
-  const navigation = useNavigation();
-
-  React.useEffect(() => {
-    const token = async () => {
-      await requestNotificationPermissionAndroid();
-      const res = await getFirebaseTokenAsync();
-      console.log(res);
-    };
-    token();
-  }, []);
-
-  // @ts-ignore
-  const handleNavigate = () => navigation.navigate('Details');
-  return (
-    <View style={{flex: 1, marginTop: 30}}>
-      <ItenaryItem />
-    </View>
-  );
-}
+const Tab = createBottomTabNavigator<HomeStackNavigatorParamList>();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        {/* @ts-ignore */}
-        <Stack.Screen name="Home" component={HomeScreen} />
-        {/* @ts-ignore */}
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
+      <Tab.Navigator screenOptions={{headerShown: false}} tabBar={TabBar}>
+        <Tab.Screen
+          name="Home"
+          component={Screen.Home}
+          options={{
+            tabBarIcon: props => (
+              <Icons.Home
+                fill={props.focused ? COLORS.FOCUS_BLUE : COLORS.ICON_GRAY}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Wallet"
+          component={Screen.Wallet}
+          options={{
+            tabBarIcon: props => (
+              <Icons.Wallet
+                fill={props.focused ? COLORS.FOCUS_BLUE : COLORS.ICON_GRAY}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Guide"
+          component={Screen.Guide}
+          options={{
+            tabBarIcon: props => (
+              <Icons.Guide
+                fill={props.focused ? COLORS.FOCUS_BLUE : COLORS.ICON_GRAY}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Chart"
+          component={Screen.Chart}
+          options={{
+            tabBarIcon: props => (
+              <Icons.Chart
+                fill={props.focused ? COLORS.FOCUS_BLUE : COLORS.ICON_GRAY}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
