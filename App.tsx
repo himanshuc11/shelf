@@ -8,6 +8,7 @@ import {
   getFirebaseTokenAsync,
   requestNotificationPermissionAndroid,
 } from './utils/helper';
+import ItenaryItem from './components/ItenaryItem';
 
 const Stack = createNativeStackNavigator<HomeStackNavigatorParamList>();
 
@@ -40,9 +41,8 @@ function HomeScreen(props: HomeScreenNavigationProp) {
   // @ts-ignore
   const handleNavigate = () => navigation.navigate('Details');
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen Ner</Text>
-      <Button onPress={handleNavigate} title="Navigate To Details" />
+    <View style={{flex: 1, marginTop: 30}}>
+      <ItenaryItem />
     </View>
   );
 }
