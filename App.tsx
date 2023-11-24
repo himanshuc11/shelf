@@ -1,23 +1,19 @@
 import * as React from 'react';
 import {View, Text, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {useNavigation} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeStackNavigatorParamList, HomeScreenNavigationProp} from './types';
 import {
-  getFirebaseTokenAsync,
-  requestNotificationPermissionAndroid,
-} from './utils/helper';
+  HomeStackNavigatorParamList,
+  HomeScreenNavigationProp,
+  DetailsScreenNavigationProp,
+} from './types';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
 import ItenaryItem from './components/ItenaryItem';
 
-const Stack = createNativeStackNavigator<HomeStackNavigatorParamList>();
+const Tab = createBottomTabNavigator<HomeStackNavigatorParamList>();
 
-function DetailsScreen(props: HomeScreenNavigationProp) {
-  const navigation = useNavigation();
-  // @ts-ignore
-  const handleNavigate = () => navigation.navigate('Home');
-
-  console.log(props);
+function DetailsScreen(props: DetailsScreenNavigationProp) {
+  const handleNavigate = () => props.navigation.navigate('Home');
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Details Screen Ner</Text>
@@ -27,19 +23,7 @@ function DetailsScreen(props: HomeScreenNavigationProp) {
 }
 
 function HomeScreen(props: HomeScreenNavigationProp) {
-  const navigation = useNavigation();
-
-  React.useEffect(() => {
-    const token = async () => {
-      await requestNotificationPermissionAndroid();
-      const res = await getFirebaseTokenAsync();
-      console.log(res);
-    };
-    token();
-  }, []);
-
-  // @ts-ignore
-  const handleNavigate = () => navigation.navigate('Details');
+  const handleNavigate = () => props.navigation.navigate('Details');
   return (
     <View style={{flex: 1, marginTop: 30}}>
       <ItenaryItem />
@@ -50,12 +34,10 @@ function HomeScreen(props: HomeScreenNavigationProp) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        {/* @ts-ignore */}
-        <Stack.Screen name="Home" component={HomeScreen} />
-        {/* @ts-ignore */}
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Details" component={DetailsScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
