@@ -3,8 +3,7 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {HomeStackNavigatorParamList} from './types';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from './screens/Home';
-import DetailsScreen from './screens/Details';
+import * as Screen from './screens';
 import * as Icons from './themes/icons';
 import COLORS from './themes/colors';
 
@@ -13,10 +12,10 @@ const Tab = createBottomTabNavigator<HomeStackNavigatorParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator screenOptions={{headerShown: false}}>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={Screen.Home}
           options={{
             tabBarIcon: props => (
               <Icons.Home
@@ -25,7 +24,9 @@ export default function App() {
             ),
           }}
         />
-        <Tab.Screen name="Details" component={DetailsScreen} />
+        <Tab.Screen name="Wallet" component={Screen.Wallet} />
+        <Tab.Screen name="Guide" component={Screen.Guide} />
+        <Tab.Screen name="Chart" component={Screen.Chart} />
       </Tab.Navigator>
     </NavigationContainer>
   );

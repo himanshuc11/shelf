@@ -1,19 +1,17 @@
-import {View, StyleSheet, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import type {HomeStackNavigatorParamList} from '../types';
 import COLORS from '../themes/colors';
-import useNotificationToken from '../hooks/useNotificationToken';
 
-type HomeScreenNavigationProp = BottomTabScreenProps<
+type ChartScreenNavigationProp = BottomTabScreenProps<
   HomeStackNavigatorParamList,
-  'Home'
+  'Chart'
 >;
 
-function Home(props: HomeScreenNavigationProp) {
-  useNotificationToken();
+function Chart(props: ChartScreenNavigationProp) {
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.text}>Home Page</Text>
+      <Text style={styles.text}>Chart</Text>
     </View>
   );
 }
@@ -34,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Chart;
