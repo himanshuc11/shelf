@@ -43,8 +43,6 @@ function HomeScreen(props: HomeScreenNavigationProp) {
   return (
     <View style={{flex: 1, marginTop: 30}}>
       <ItenaryItem color="yellow" />
-      <ItenaryItem color="red" />
-      <ItenaryItem color="green" />
     </View>
   );
 }

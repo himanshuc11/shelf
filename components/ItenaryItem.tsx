@@ -1,7 +1,8 @@
-import {View, Text, SafeAreaView, Image, StyleSheet} from 'react-native';
-import TimelineCircle from './TimelineCircle';
+import {View, Text, Image, StyleSheet} from 'react-native';
 import {sun, moon, cloud} from '../themes/images';
 import COLORS from '../themes/colors';
+
+const CIRCLE_RAIUS = 22;
 
 const items = [
   {
@@ -41,15 +42,16 @@ type Props = {
 function ItenaryItem(props: Props) {
   const currentItem = items[0];
   return (
-    <View style={[styles.rowContainer, {backgroundColor: props.color}]}>
-      <TimelineCircle dateTime={currentItem.date} />
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          alignSelf: 'flex-start',
-        }}>
-        <View style={styles.textContainer}>
+    <View style={styles.itenaryContainer}>
+      <Text style={styles.timeText}>00:00</Text>
+      <View style={{height: '100%'}}>
+        <View style={styles.circle} />
+        <View style={styles.timeline}>
+          <View style={styles.timelineLine} />
+        </View>
+      </View>
+      <View style={styles.titleGroup}>
+        <View style={styles.titleContainer}>
           <Text>{currentItem.title}</Text>
           <Text>{currentItem.subTitle}</Text>
         </View>
@@ -64,12 +66,21 @@ function ItenaryItem(props: Props) {
 }
 
 const styles = StyleSheet.create({
-  textContainer: {marginLeft: 24, marginTop: -10},
+  titleGroup: {
+    flex: 1,
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
+  },
+  titleContainer: {marginLeft: 24, marginTop: -10},
   rightAlign: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginTop: -10,
+  },
+  timeline: {
+    flex: 1,
+    alignItems: 'flex-end',
   },
   imageContainer: {
     width: 40,
@@ -79,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 40,
   },
-  rowContainer: {
+  itenaryContainer: {
     flexDirection: 'row',
     marginLeft: 16,
     marginRight: 24,
@@ -87,6 +98,22 @@ const styles = StyleSheet.create({
     height: 100,
   },
   weather: {width: '100%', height: '100%'},
+  timeText: {marginRight: 6, fontSize: 18},
+  circle: {
+    width: CIRCLE_RAIUS,
+    height: CIRCLE_RAIUS,
+    borderRadius: CIRCLE_RAIUS,
+    borderColor: COLORS.GRAY,
+    borderWidth: 1,
+    backgroundColor: COLORS.BACKGROUND,
+  },
+  timelineLine: {
+    backgroundColor: COLORS.GRAY,
+    width: 1,
+    flex: 1,
+    flexDirection: 'column',
+    right: CIRCLE_RAIUS / 2,
+  },
 });
 
 export default ItenaryItem;
