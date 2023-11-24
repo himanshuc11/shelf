@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet} from 'react-native';
 import COLORS from '../themes/colors';
 
-const CIRCLE_RAIUS = 22;
+const CIRCLE_RAIUS = 10;
 
 type Props = {
   dateTime: string;
@@ -18,7 +18,6 @@ function Line(props: LineProps) {
         backgroundColor: props.color,
         width: 1,
         flex: 1,
-        zIndex: 0,
         flexDirection: 'column',
         right: CIRCLE_RAIUS / 2,
       }}
@@ -29,7 +28,7 @@ function Line(props: LineProps) {
 function TimelineCircle(props: Props) {
   return (
     <View style={styles.timeline}>
-      <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+      <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
         <Text style={styles.text}>00:00</Text>
         <View style={styles.circle} />
       </View>
@@ -50,8 +49,6 @@ const styles = StyleSheet.create({
     borderRadius: CIRCLE_RAIUS,
     borderColor: COLORS.GRAY,
     borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: COLORS.BACKGROUND,
   },
 });

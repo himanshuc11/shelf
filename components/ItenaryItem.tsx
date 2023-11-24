@@ -34,10 +34,14 @@ const items = [
   },
 ];
 
-function ItenaryItem() {
+type Props = {
+  color: string;
+};
+
+function ItenaryItem(props: Props) {
   const currentItem = items[0];
   return (
-    <View style={styles.rowContainer}>
+    <View style={[styles.rowContainer, {backgroundColor: props.color}]}>
       <TimelineCircle dateTime={currentItem.date} />
       <View
         style={{
@@ -60,8 +64,13 @@ function ItenaryItem() {
 }
 
 const styles = StyleSheet.create({
-  textContainer: {marginLeft: 24},
-  rightAlign: {flex: 1, flexDirection: 'row', justifyContent: 'flex-end'},
+  textContainer: {marginLeft: 24, marginTop: -10},
+  rightAlign: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: -10,
+  },
   imageContainer: {
     width: 40,
     height: 40,
@@ -74,7 +83,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 16,
     marginRight: 24,
-    alignItems: 'center',
     backgroundColor: 'yellow',
     height: 100,
   },
