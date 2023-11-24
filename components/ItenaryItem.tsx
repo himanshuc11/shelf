@@ -34,9 +34,7 @@ const items = [
   },
 ];
 
-type Props = {
-  color: string;
-};
+type Props = {};
 
 function ItenaryItem(props: Props) {
   const currentItem = items[0];
@@ -46,7 +44,7 @@ function ItenaryItem(props: Props) {
       <TimelineCircle />
       <View style={styles.titleGroup}>
         <View style={styles.titleContainer}>
-          <Text>{currentItem.title}</Text>
+          <Text style={styles.place}>{currentItem.title}</Text>
           <Text>{currentItem.subTitle}</Text>
         </View>
         <View style={styles.rightAlign}>
@@ -60,6 +58,11 @@ function ItenaryItem(props: Props) {
 }
 
 const styles = StyleSheet.create({
+  place: {
+    fontFamily: 'Poppins-Black',
+    fontSize: 16,
+    fontWeight: '600',
+  },
   titleGroup: {
     flex: 1,
     flexDirection: 'row',
@@ -84,7 +87,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 16,
     marginRight: 24,
-    backgroundColor: 'yellow',
     height: 100,
   },
   weather: {width: '100%', height: '100%'},

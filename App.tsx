@@ -42,7 +42,7 @@ function HomeScreen(props: HomeScreenNavigationProp) {
   const handleNavigate = () => navigation.navigate('Details');
   return (
     <View style={{flex: 1, marginTop: 30}}>
-      <ItenaryItem color="yellow" />
+      <ItenaryItem />
     </View>
   );
 }
