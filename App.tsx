@@ -7,6 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screen from './screens';
 import * as Icons from './themes/icons';
 import COLORS from './themes/colors';
+import ScreenHeader from './components/ScreenHeader';
 import type {HomeStackNavigatorParamList} from './types';
 
 const Tab = createBottomTabNavigator<HomeStackNavigatorParamList>();
@@ -15,7 +16,10 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Tab.Navigator screenOptions={{headerShown: false}} tabBar={TabBar}>
+        <Tab.Navigator
+          screenOptions={{headerShown: false}}
+          tabBar={TabBar}
+          backBehavior="history">
           <Tab.Screen
             name="Home"
             component={Screen.Home}
@@ -50,6 +54,9 @@ export default function App() {
                   fill={props.focused ? COLORS.FOCUS_BLUE : COLORS.ICON_GRAY}
                 />
               ),
+              title: 'Itinerary Form',
+              headerShown: true,
+              header: props => <ScreenHeader {...props} />,
             }}
           />
           <Tab.Screen

@@ -12,7 +12,7 @@ type GuideScreenNavigationProp = BottomTabScreenProps<
 
 function Guide(props: GuideScreenNavigationProp) {
   return (
-    <View style={{flex: 1, marginTop: 30}}>
+    <View style={{flex: 1}}>
       <GuideHeader />
       <ItenaryItem />
     </View>

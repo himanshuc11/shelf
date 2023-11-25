@@ -6,6 +6,7 @@ const COLORS = {
   DARK_GRAY: '#B1B1B1',
   ICON_GRAY: '#BCBCBC',
   FOCUS_BLUE: '#0373F3',
+  ARROW_BLACK: '#200E32',
 } as const;
 
 export default COLORS;

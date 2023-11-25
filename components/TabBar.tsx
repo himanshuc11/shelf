@@ -9,7 +9,7 @@ function TabBar({state, descriptors, navigation}: BottomTabBarProps) {
     <View style={styles.tabBarContainer}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
-        const label = options.title ?? route.name;
+        const label = route.name ?? options.title;
 
         const isFocused = state.index === index;
 
