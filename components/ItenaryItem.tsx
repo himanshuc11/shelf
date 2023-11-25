@@ -1,6 +1,7 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import TimelineCircle from './TimelineCircle';
-import {sun, moon, cloud} from '../themes/images';
+import * as images from '../themes/images';
+import {format} from 'date-fns';
 import COLORS from '../themes/colors';
 
 const items = [
@@ -8,40 +9,43 @@ const items = [
     id: 1,
     title: 'Maldives',
     subTitle: 'Save the turtles',
-    date: '2023-11-23T00:00:00.000Z',
-    weather: sun,
+    date: '2023-11-22T18:30:00.000Z',
+    weather: images.wind,
   },
   {
     id: 2,
     title: 'Golden Beach',
     subTitle: 'Surfing on sea',
-    date: '2023-11-23T00:00:00.000Z',
-    weather: moon,
+    date: '2023-11-23T02:30:00.000Z',
+    weather: images.thunder,
   },
   {
     id: 3,
     title: 'Coconut Grove',
     subTitle: 'BBQ party by the sea',
-    date: '2023-11-23T00:00:00.000Z',
-    weather: cloud,
+    date: '2023-11-23T10:30:00.000Z',
+    weather: images.moon,
   },
   {
     id: 4,
     title: 'Maldives Islands',
     subTitle: 'Sea blowing',
-    date: '2023-11-23T00:00:00.000Z',
-    weather: cloud,
+    date: '2023-11-23T18:29:00.000Z',
+    weather: images.rain,
   },
 ];
 
 type Props = {};
 
 function ItenaryItem(props: Props) {
-  const currentItem = items[0];
+  const currentItem = items[3];
+  const date = new Date(currentItem.date);
+  const dateText = format(date, 'HH:mm');
+
   return (
     <View style={styles.itenaryContainer}>
-      <Text style={styles.timeText}>00:00</Text>
-      <TimelineCircle />
+      <Text style={styles.timeText}>{dateText}</Text>
+      <TimelineCircle date={currentItem.date} />
       <View style={styles.titleGroup}>
         <View style={styles.titleContainer}>
           <Text style={styles.place}>{currentItem.title}</Text>
