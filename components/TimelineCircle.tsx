@@ -1,7 +1,7 @@
 import {CIRCLE_RAIUS} from '../utils/constants';
 import COLORS from '../themes/colors';
 import {View, StyleSheet} from 'react-native';
-import {isAfter, isBefore, differenceInMinutes} from 'date-fns';
+import {zonedTimeToUtc} from 'date-fns-tz';
 import Location from '../themes/icons/Location';
 import {getTimelineStyles} from '../utils/helper';
 
@@ -12,7 +12,7 @@ type Props = {
 };
 
 function TimelineCircle({date, nextDate}: Props) {
-  const currentDate = new Date();
+  const currentDate = zonedTimeToUtc(new Date(), 'UTC');
   const currentItemStartDate = new Date(date);
   const nextItemStartDate = nextDate ? new Date(nextDate) : new Date();
 

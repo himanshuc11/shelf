@@ -1,6 +1,6 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import TimelineCircle from './TimelineCircle';
-import {format} from 'date-fns';
+import {formatInTimeZone, zonedTimeToUtc} from 'date-fns-tz';
 import COLORS from '../themes/colors';
 import {Itenary} from '../types';
 
@@ -12,7 +12,8 @@ type Props = Itenary & {
 function ItenaryItem(props: Props) {
   const currentItem = props;
   const date = new Date(currentItem.date);
-  const dateText = format(date, 'HH:mm');
+  const local = zonedTimeToUtc(date, 'Asia/Kolkata');
+  const dateText = formatInTimeZone(local, 'UTC', 'HH:mm');
 
   return (
     <View style={styles.itenaryContainer}>
