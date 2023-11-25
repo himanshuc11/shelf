@@ -1,6 +1,4 @@
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {updateTab} from '../redux/guide';
 import {getDayText} from '../utils/helper';
 import COLORS from '../themes/colors';
 import type {GuideTab} from '../types';
@@ -12,7 +10,8 @@ type Props = {
 };
 
 function GuideTabItem({day, handleTabPress, isFocussed}: Props) {
-  const text = getDayText(day);
+  const dateText = getDayText(day);
+  const headerText = day.charAt(0) + day.slice(1).toLowerCase();
 
   const borderStyles = {
     borderColor: isFocussed ? COLORS.FOCUS_BLUE : COLORS.WHITE,
@@ -21,8 +20,8 @@ function GuideTabItem({day, handleTabPress, isFocussed}: Props) {
   return (
     <TouchableOpacity onPress={() => handleTabPress(day)} style={styles.tab}>
       <View style={[styles.textContainer, borderStyles]}>
-        <Text style={styles.headerText}>{day}</Text>
-        <Text style={styles.subTitleText}>{text}</Text>
+        <Text style={styles.headerText}>{headerText}</Text>
+        <Text style={styles.subTitleText}>{dateText}</Text>
       </View>
     </TouchableOpacity>
   );

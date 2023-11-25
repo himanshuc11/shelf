@@ -44,32 +44,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     height: 80,
   },
-  headerText: {
-    fontFamily: 'Poppins-Bold',
-    fontWeight: '600',
-    fontSize: 18,
-    lineHeight: 28,
-    color: COLORS.BLACK,
-  },
-  subTitleText: {
-    fontFamily: 'Poppins-Regulars',
-    fontWeight: '400',
-    fontSize: 16,
-    color: COLORS.DARK_GRAY,
-    marginTop: -2,
-  },
-  tab: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textContainer: {
-    height: '100%',
-    borderBottomWidth: 3,
-    borderColor: COLORS.FOCUS_BLUE,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 });
 
 export default GuideHeader;
