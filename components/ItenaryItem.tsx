@@ -4,7 +4,10 @@ import {format} from 'date-fns';
 import COLORS from '../themes/colors';
 import {Itenary} from '../types';
 
-type Props = Itenary;
+type Props = Itenary & {
+  // If nextDate is null, this means this is the last Item
+  nextDate: string | undefined;
+};
 
 function ItenaryItem(props: Props) {
   const currentItem = props;
@@ -14,13 +17,13 @@ function ItenaryItem(props: Props) {
   return (
     <View style={styles.itenaryContainer}>
       <Text style={styles.timeText}>{dateText}</Text>
-      <TimelineCircle date={currentItem.date} />
+      <TimelineCircle date={currentItem.date} nextDate={props.nextDate} />
       <View style={styles.titleGroup}>
         <View style={styles.titleContainer}>
           <Text style={styles.place}>{currentItem.title}</Text>
           <Text style={styles.activity}>{currentItem.subTitle}</Text>
         </View>
-        <View style={styles.rightAlign}>
+        <View style={styles.rightAlignImage}>
           <View style={styles.imageContainer}>
             <Image source={currentItem.weather} style={styles.weather} />
           </View>
@@ -51,7 +54,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   titleContainer: {marginLeft: 24, marginTop: -10},
-  rightAlign: {
+  rightAlignImage: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',

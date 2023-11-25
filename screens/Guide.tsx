@@ -19,7 +19,13 @@ function Guide(props: GuideScreenNavigationProp) {
           paddingTop: 32,
         }}
         data={ITEMS}
-        renderItem={({item}) => <ItenaryItem {...item} key={item.id} />}
+        renderItem={({item, index}) => (
+          <ItenaryItem
+            {...item}
+            key={item.id}
+            nextDate={ITEMS?.[index + 1]?.date}
+          />
+        )}
       />
     </View>
   );
