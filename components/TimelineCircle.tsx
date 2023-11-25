@@ -17,8 +17,8 @@ function TimelineCircle({date}: Props) {
         <Location fill={COLORS.WHITE} />
       </View>
       <View style={styles.timeline}>
-        <View style={styles.timelineFilled} />
-        <View style={styles.timelineUnfilled} />
+        <View style={[styles.timelineFilled]} />
+        <View style={[styles.timelineUnfilled]} />
       </View>
     </View>
   );
