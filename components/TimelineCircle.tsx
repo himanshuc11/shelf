@@ -3,6 +3,7 @@ import COLORS from '../themes/colors';
 import {View, StyleSheet} from 'react-native';
 import {isAfter, isBefore, differenceInMinutes} from 'date-fns';
 import Location from '../themes/icons/Location';
+import {getTimelineStyles} from '../utils/helper';
 
 type Props = {
   date: string;
@@ -15,51 +16,11 @@ function TimelineCircle({date, nextDate}: Props) {
   const currentItemStartDate = new Date(date);
   const nextItemStartDate = nextDate ? new Date(nextDate) : new Date();
 
-  let circleStyles = {};
-  if (isBefore(currentItemStartDate, currentDate)) {
-    circleStyles = {
-      backgroundColor: COLORS.FOCUS_BLUE,
-    };
-  }
-
-  let filledStyle = {};
-  let unfilledStyle = {};
-
-  if (isBefore(currentItemStartDate, currentDate)) {
-    unfilledStyle = {
-      height: '100%',
-    };
-    filledStyle = {
-      height: '0%',
-    };
-  }
-  if (isAfter(currentDate, nextItemStartDate)) {
-    filledStyle = {
-      height: '100%',
-    };
-    unfilledStyle = {
-      height: '0%',
-    };
-  }
-  if (
-    isAfter(currentDate, currentItemStartDate) &&
-    isBefore(currentDate, nextItemStartDate)
-  ) {
-    const totalLength = differenceInMinutes(
-      nextItemStartDate,
-      currentItemStartDate,
-    );
-    const filledLength = differenceInMinutes(currentDate, currentItemStartDate);
-    const filledPercentage = (filledLength * 100) / totalLength;
-    const unfilledPercentage = 100 - filledPercentage;
-
-    filledStyle = {
-      height: filledPercentage,
-    };
-    unfilledStyle = {
-      height: unfilledPercentage,
-    };
-  }
+  const {unfilledStyle, filledStyle, circleStyles} = getTimelineStyles(
+    currentDate,
+    currentItemStartDate,
+    nextItemStartDate,
+  );
 
   return (
     <View style={styles.timelineContainer}>

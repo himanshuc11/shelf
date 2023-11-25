@@ -1,8 +1,10 @@
 import {PermissionsAndroid, Platform} from 'react-native';
 import {Alert} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
+import {isAfter, isBefore, differenceInMinutes} from 'date-fns';
 import {firebase} from '@react-native-firebase/messaging';
 import {format, sub, add} from 'date-fns';
+import COLORS from '../themes/colors';
 import {GuideTab} from '../types';
 
 async function requestNotificationPermissionAndroid() {
@@ -52,8 +54,72 @@ function getDayText(day: GuideTab) {
   return format(res, formatting);
 }
 
+function getTimelineStyles(
+  currentDate: Date,
+  currentItemStartDate: Date,
+  nextItemStartDate: Date,
+) {
+  let circleStyles = {};
+  if (isBefore(currentItemStartDate, currentDate)) {
+    circleStyles = {
+      backgroundColor: COLORS.FOCUS_BLUE,
+    };
+  }
+
+  let filledStyle = {};
+  let unfilledStyle = {};
+
+  // current time is before start date of the item => Itenary Item hasn't started
+  if (isBefore(currentItemStartDate, currentDate)) {
+    unfilledStyle = {
+      height: '100%',
+    };
+    filledStyle = {
+      height: '0%',
+    };
+  }
+
+  // current time is after start date of the item => Itenary Item has been completed
+  if (isAfter(currentDate, nextItemStartDate)) {
+    filledStyle = {
+      height: '100%',
+    };
+    unfilledStyle = {
+      height: '0%',
+    };
+  }
+
+  // Itenary Item is in progress, Hence compute lengths to color
+  if (
+    isAfter(currentDate, currentItemStartDate) &&
+    isBefore(currentDate, nextItemStartDate)
+  ) {
+    const totalLength = differenceInMinutes(
+      nextItemStartDate,
+      currentItemStartDate,
+    );
+    const filledLength = differenceInMinutes(currentDate, currentItemStartDate);
+    const filledPercentage = (filledLength * 100) / totalLength;
+    const unfilledPercentage = 100 - filledPercentage;
+
+    filledStyle = {
+      height: filledPercentage,
+    };
+    unfilledStyle = {
+      height: unfilledPercentage,
+    };
+  }
+
+  return {
+    filledStyle,
+    unfilledStyle,
+    circleStyles,
+  };
+}
+
 export {
   requestNotificationPermissionAndroid,
   getFirebaseTokenAsync,
   getDayText,
+  getTimelineStyles,
 };
