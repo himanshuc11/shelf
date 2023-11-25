@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: COLORS.BLACK,
     lineHeight: 24,
+    width: 50,
   },
 });
 

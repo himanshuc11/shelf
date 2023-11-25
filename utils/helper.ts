@@ -70,7 +70,7 @@ function getTimelineStyles(
   let unfilledStyle = {};
 
   // current time is before start date of the item => Itenary Item hasn't started
-  if (isBefore(currentItemStartDate, currentDate)) {
+  if (isBefore(currentDate, currentItemStartDate)) {
     unfilledStyle = {
       height: '100%',
     };
@@ -103,10 +103,10 @@ function getTimelineStyles(
     const unfilledPercentage = 100 - filledPercentage;
 
     filledStyle = {
-      height: filledPercentage,
+      height: `${filledPercentage}%`,
     };
     unfilledStyle = {
-      height: unfilledPercentage,
+      height: `${unfilledPercentage}%`,
     };
   }
 

@@ -23,7 +23,7 @@ const ITEMS: Itenary[] = [
     id: 3,
     title: 'Coconut Grove',
     subTitle: 'BBQ party by the sea',
-    date: '2023-11-25T16:00:00.000Z',
+    date: '2023-11-25T19:00:00.000Z',
     weather: images.moon,
   },
   {
