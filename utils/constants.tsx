@@ -4,6 +4,10 @@ import type {Itenary} from '../types';
 const CIRCLE_RAIUS = 22 as const;
 const GUIDE_TAB = ['YESTERDAY', 'TODAY', 'TOMORROW'] as const;
 
+// Assumption
+// 1. Items must be in sorted by date order
+// 2. The array for the same day (As per UI). {Code would work but no indicaction of day change in UI}
+// 3. Items that span across a day must be broken into 2 separate items
 const ITEMS: Itenary[] = [
   {
     id: 1,
