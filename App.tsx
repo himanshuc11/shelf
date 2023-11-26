@@ -1,12 +1,15 @@
 import * as React from 'react';
 import TabBar from './components/TabBar';
 import store from './redux/store';
+import notifee from '@notifee/react-native';
+import {Linking} from 'react-native';
 import {Provider} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screen from './screens';
 import * as Icons from './themes/icons';
 import COLORS from './themes/colors';
+import messaging from '@react-native-firebase/messaging';
 import ScreenHeader from './components/ScreenHeader';
 import type {HomeStackNavigatorParamList} from './types';
 
@@ -15,7 +18,24 @@ const Tab = createBottomTabNavigator<HomeStackNavigatorParamList>();
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer
+        onReady={() => {
+          const handleInitialNotification = async () => {
+            const initialNotification = await notifee.getInitialNotification();
+
+            if (initialNotification) {
+              console.log(
+                'Notification caused application to open',
+                initialNotification.notification,
+              );
+              console.log(
+                'Press action used to open the app',
+                initialNotification.pressAction,
+              );
+            }
+            handleInitialNotification();
+          };
+        }}>
         <Tab.Navigator
           screenOptions={{headerShown: false}}
           tabBar={TabBar}

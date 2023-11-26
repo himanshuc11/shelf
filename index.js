@@ -6,24 +6,33 @@ import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
-import notifee, {AndroidImportance, AndroidStyle} from '@notifee/react-native';
+import notifee, {AndroidImportance, AndroidStyle, EventType, AndroidLaunchActivityFlag} from '@notifee/react-native';
 
+
+notifee.onForegroundEvent(async ({ type, detail }) => {
+  const { notification, pressAction } = detail;
+  console.log(notification.type)
+  // Check if the user pressed the "Mark as read" action
+  if (type === EventType.ACTION_PRESS && pressAction.id === "yesterday") {
+
+    // Remove the notification
+    // await notifee.cancelNotification(notification.id);
+  }
+});
 
 notifee.onBackgroundEvent(async ({ type, detail }) => {
   const { notification, pressAction } = detail;
-  // console.log(notification.data)
   // Check if the user pressed the "Mark as read" action
-  // if (type === EventType.ACTION_PRESS && pressAction.id === 'mark-as-read') {
-  //   // Update external API
+  if (type === EventType.ACTION_PRESS && pressAction.id === "yesterday") {
+    // Update external API
     
 
-  //   // Remove the notification
-  //   await notifee.cancelNotification(notification.id);
-  // }
+    // Remove the notification
+    // await notifee.cancelNotification(notification.id);
+  }
 });
 
 async function onMessageReceived(message) {
-  
     // Request permissions (required for iOS)
     await notifee.requestPermission()
 
@@ -36,25 +45,21 @@ async function onMessageReceived(message) {
 
     // Display a notification
     await notifee.displayNotification({
-      title: "Notifee",
+      title: "FCM Push Notification",
       subtitle: "Check out action buttons",
-      body: "Choose one of the matrix pills",
-      data: { id: String(9) },
+      data: { ...message.data },
       android: {
+        pressAction: {
+          id: 'default',
+          launchActivity: 'default',
+          launchActivityFlags: [AndroidLaunchActivityFlag.SINGLE_TOP],
+        },
         channelId,
         largeIcon: "https://i.imgflip.com/7l05nu.jpg",
       style: {
         type: AndroidStyle.BIGPICTURE,
         picture: "https://i.imgflip.com/7l05nu.jpg",
       },
-        actions: [
-          {
-            pressAction: { id: "red" },
-            title: "Red Pill",
-            
-          },
-          { pressAction: { id: "blue" }, title: "Blue Pill" },
-        ],
       },
     })
 }
