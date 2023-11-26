@@ -12,7 +12,6 @@ import COLORS from '../themes/colors';
 function ScreenHeader(props: BottomTabHeaderProps) {
   const handleBackPress = () => {
     if (props.navigation.canGoBack()) {
-      console.log('HERE');
       props.navigation.goBack();
       return true;
     }

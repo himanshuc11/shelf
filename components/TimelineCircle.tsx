@@ -1,19 +1,44 @@
 import {CIRCLE_RAIUS} from '../utils/constants';
 import COLORS from '../themes/colors';
 import {View, StyleSheet} from 'react-native';
+import {zonedTimeToUtc} from 'date-fns-tz';
+import Location from '../themes/icons/Location';
+import {getTimelineStyles} from '../utils/helper';
 
-function TimelineCircle() {
+type Props = {
+  date: string;
+  // If nextDate is undefined, this means this is the last Item
+  nextDate: string | undefined;
+};
+
+function TimelineCircle({date, nextDate}: Props) {
+  const currentDate = zonedTimeToUtc(new Date(), 'UTC');
+  const currentItemStartDate = new Date(date);
+  const nextItemStartDate = nextDate ? new Date(nextDate) : new Date();
+
+  const {unfilledStyle, filledStyle, circleStyles} = getTimelineStyles(
+    currentDate,
+    currentItemStartDate,
+    nextItemStartDate,
+  );
+
   return (
-    <View style={{height: '100%'}}>
-      <View style={styles.circle} />
-      <View style={styles.timeline}>
-        <View style={styles.timelineLine} />
+    <View style={styles.timelineContainer}>
+      <View style={[styles.circle, circleStyles]}>
+        <Location fill={COLORS.WHITE} />
       </View>
+      {nextDate ? (
+        <View style={styles.timeline}>
+          <View style={[styles.timelineFilled, filledStyle]} />
+          <View style={[styles.timelineUnfilled, unfilledStyle]} />
+        </View>
+      ) : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  timelineContainer: {height: '100%'},
   timeline: {
     flex: 1,
     alignItems: 'flex-end',
@@ -25,11 +50,18 @@ const styles = StyleSheet.create({
     borderColor: COLORS.GRAY,
     borderWidth: 1,
     backgroundColor: COLORS.BACKGROUND,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  timelineLine: {
+  timelineUnfilled: {
     backgroundColor: COLORS.GRAY,
-    width: 1,
-    flex: 1,
+    width: 2,
+    flexDirection: 'column',
+    right: CIRCLE_RAIUS / 2,
+  },
+  timelineFilled: {
+    backgroundColor: COLORS.FOCUS_BLUE,
+    width: 2,
     flexDirection: 'column',
     right: CIRCLE_RAIUS / 2,
   },

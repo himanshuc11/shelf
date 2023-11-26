@@ -7,4 +7,12 @@ export type HomeStackNavigatorParamList = {
   Chart: undefined;
 };
 
+export type Itenary = {
+  id: number;
+  title: string;
+  subTitle: string;
+  date: string;
+  weather: any;
+};
+
 export type GuideTab = (typeof GUIDE_TAB)[number];

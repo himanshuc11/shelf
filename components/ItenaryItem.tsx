@@ -1,53 +1,30 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import TimelineCircle from './TimelineCircle';
-import {sun, moon, cloud} from '../themes/images';
+import {formatInTimeZone, zonedTimeToUtc} from 'date-fns-tz';
 import COLORS from '../themes/colors';
+import {Itenary} from '../types';
 
-const items = [
-  {
-    id: 1,
-    title: 'Maldives',
-    subTitle: 'Save the turtles',
-    date: '2023-11-23T00:00:00.000Z',
-    weather: sun,
-  },
-  {
-    id: 2,
-    title: 'Golden Beach',
-    subTitle: 'Surfing on sea',
-    date: '2023-11-23T00:00:00.000Z',
-    weather: moon,
-  },
-  {
-    id: 3,
-    title: 'Coconut Grove',
-    subTitle: 'BBQ party by the sea',
-    date: '2023-11-23T00:00:00.000Z',
-    weather: cloud,
-  },
-  {
-    id: 4,
-    title: 'Maldives Islands',
-    subTitle: 'Sea blowing',
-    date: '2023-11-23T00:00:00.000Z',
-    weather: cloud,
-  },
-];
-
-type Props = {};
+type Props = Itenary & {
+  // If nextDate is null, this means this is the last Item
+  nextDate: string | undefined;
+};
 
 function ItenaryItem(props: Props) {
-  const currentItem = items[0];
+  const currentItem = props;
+  const date = new Date(currentItem.date);
+  const local = zonedTimeToUtc(date, 'Asia/Kolkata');
+  const dateText = formatInTimeZone(local, 'UTC', 'HH:mm');
+
   return (
     <View style={styles.itenaryContainer}>
-      <Text style={styles.timeText}>00:00</Text>
-      <TimelineCircle />
+      <Text style={styles.timeText}>{dateText}</Text>
+      <TimelineCircle date={currentItem.date} nextDate={props.nextDate} />
       <View style={styles.titleGroup}>
         <View style={styles.titleContainer}>
           <Text style={styles.place}>{currentItem.title}</Text>
           <Text style={styles.activity}>{currentItem.subTitle}</Text>
         </View>
-        <View style={styles.rightAlign}>
+        <View style={styles.rightAlignImage}>
           <View style={styles.imageContainer}>
             <Image source={currentItem.weather} style={styles.weather} />
           </View>
@@ -78,7 +55,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   titleContainer: {marginLeft: 24, marginTop: -10},
-  rightAlign: {
+  rightAlignImage: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -106,6 +83,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: COLORS.BLACK,
     lineHeight: 24,
+    width: 50,
   },
 });
 

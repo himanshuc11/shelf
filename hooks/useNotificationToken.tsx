@@ -9,7 +9,7 @@ function useNotificationToken() {
     const token = async () => {
       await requestNotificationPermissionAndroid();
       const res = await getFirebaseTokenAsync();
-      console.log(res);
+      // console.log(res);
     };
     token();
   }, []);
