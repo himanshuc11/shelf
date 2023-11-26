@@ -1,5 +1,5 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {AppState, StyleSheet, Text, View} from 'react-native';
+import {useRef, useState, useEffect} from 'react';
+import {AppState} from 'react-native';
 
 const useApplicationForegrounded = (callback: () => void) => {
   const appState = useRef(AppState.currentState);
@@ -17,7 +17,6 @@ const useApplicationForegrounded = (callback: () => void) => {
 
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
-      console.log('AppState', appState.current);
     });
 
     return () => {

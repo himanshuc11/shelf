@@ -36,14 +36,14 @@ function App() {
     });
   });
 
-  const handleTransitionBecauseOfNotification = async () => {
+  const handleTransitionBecauseOfNotification = React.useCallback(async () => {
     const screen = (await AsyncStorage.getItem('day')) as GuideTab;
     if (screen) {
       await AsyncStorage.removeItem('day');
       dispatch(updateTab(screen));
       navigationRef.current?.navigate('Guide');
     }
-  };
+  }, []);
 
   useApplicationForegrounded(handleTransitionBecauseOfNotification);
 
