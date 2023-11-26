@@ -1,40 +1,51 @@
 import * as React from 'react';
 import TabBar from './components/TabBar';
 import store from './redux/store';
-import notifee from '@notifee/react-native';
-import {Linking} from 'react-native';
+import notifee, {EventType} from '@notifee/react-native';
 import {Provider} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screen from './screens';
 import * as Icons from './themes/icons';
 import COLORS from './themes/colors';
-import messaging from '@react-native-firebase/messaging';
+import useApplicationForegrounded from './hooks/useApplicationForegrounded';
 import ScreenHeader from './components/ScreenHeader';
 import type {HomeStackNavigatorParamList} from './types';
+import type {NavigationContainerRef} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator<HomeStackNavigatorParamList>();
 
 export default function App() {
+  const navigationRef =
+    React.useRef<NavigationContainerRef<HomeStackNavigatorParamList>>(null);
+
+  // Handle Foreground notification
+  React.useEffect(() => {
+    notifee.onForegroundEvent(async ({type, detail}) => {
+      const {notification} = detail;
+      if (type === EventType.PRESS) {
+        navigationRef.current?.navigate('Guide');
+      }
+    });
+  });
+
+  const handleTransitionBecauseOfNotification = async () => {
+    const screen = await AsyncStorage.getItem('day');
+    if (screen) {
+      await AsyncStorage.removeItem('day');
+      navigationRef.current?.navigate('Guide');
+    }
+  };
+
+  useApplicationForegrounded(handleTransitionBecauseOfNotification);
+
   return (
     <Provider store={store}>
       <NavigationContainer
+        ref={navigationRef}
         onReady={() => {
-          const handleInitialNotification = async () => {
-            const initialNotification = await notifee.getInitialNotification();
-
-            if (initialNotification) {
-              console.log(
-                'Notification caused application to open',
-                initialNotification.notification,
-              );
-              console.log(
-                'Press action used to open the app',
-                initialNotification.pressAction,
-              );
-            }
-            handleInitialNotification();
-          };
+          handleTransitionBecauseOfNotification();
         }}>
         <Tab.Navigator
           screenOptions={{headerShown: false}}

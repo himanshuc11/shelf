@@ -7,29 +7,11 @@ import App from './App';
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
 import notifee, {AndroidImportance, AndroidStyle, EventType, AndroidLaunchActivityFlag} from '@notifee/react-native';
-
-
-notifee.onForegroundEvent(async ({ type, detail }) => {
-  const { notification, pressAction } = detail;
-  console.log(notification.type)
-  // Check if the user pressed the "Mark as read" action
-  if (type === EventType.ACTION_PRESS && pressAction.id === "yesterday") {
-
-    // Remove the notification
-    // await notifee.cancelNotification(notification.id);
-  }
-});
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 notifee.onBackgroundEvent(async ({ type, detail }) => {
-  const { notification, pressAction } = detail;
-  // Check if the user pressed the "Mark as read" action
-  if (type === EventType.ACTION_PRESS && pressAction.id === "yesterday") {
-    // Update external API
-    
-
-    // Remove the notification
-    // await notifee.cancelNotification(notification.id);
-  }
+  const { notification } = detail;
+  await AsyncStorage.setItem("day", notification.data.day);
 });
 
 async function onMessageReceived(message) {
