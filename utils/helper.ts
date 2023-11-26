@@ -78,11 +78,6 @@ function getTimelineStyles(
     filledStyle = {
       height: '0%',
     };
-    return {
-      circleStyles,
-      unfilledStyle,
-      filledStyle,
-    };
   }
 
   // current time is after start date of the item => Itenary Item has been completed
@@ -92,12 +87,6 @@ function getTimelineStyles(
     };
     unfilledStyle = {
       height: '0%',
-    };
-
-    return {
-      circleStyles,
-      filledStyle,
-      unfilledStyle,
     };
   }
 
